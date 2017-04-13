@@ -15,7 +15,9 @@ function dispatch(req, res) {
   res.setHeader('vary', 'accept-encoding');
   res.write('{"statusCode":404,');
   res.write('error":"Not Found"}');
-  req.socket.end();
+  res.on('finish', () => {
+    req.socket.end();
+  });
   // res.end();
 }
 
