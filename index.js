@@ -7,9 +7,6 @@ const server = http.createServer();
 server.on('request', dispatch);
 
 function dispatch(req, res) {
-  res.on('finish', () => {
-    req.socket.end();
-  });
 
   res.statusCode = 404;
   res.setHeader('content-type', 'application/json; charset=utf-8');
@@ -17,6 +14,9 @@ function dispatch(req, res) {
   res.setHeader('content-length', '38');
   res.setHeader('vary', 'accept-encoding');
   res.write(`{"statusCode":404,"error":"Not Found"}`);
+  res.on('finish', () => {
+    req.socket.end();
+  });
   res.end();
 }
 
