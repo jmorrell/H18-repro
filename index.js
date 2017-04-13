@@ -14,9 +14,9 @@ function dispatch(req, res) {
   res.setHeader('content-length', '38');
   res.setHeader('vary', 'accept-encoding');
   res.write('{"statusCode":404,');
-  req.socket.end();
   res.write('error":"Not Found"}');
-  res.end();
+  req.socket.end();
+  // res.end();
 }
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
