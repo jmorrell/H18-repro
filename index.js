@@ -13,8 +13,9 @@ function dispatch(req, res) {
   res.setHeader('cache-control', 'no-cache');
   res.setHeader('content-length', '38');
   res.setHeader('vary', 'accept-encoding');
-  res.write(`{"statusCode":404,"error":"Not Found"}`);
   req.socket.end();
+
+  res.write(`{"statusCode":404,"error":"Not Found"}`);
   res.end();
 }
 
