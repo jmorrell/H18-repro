@@ -8,17 +8,16 @@ server.on('request', dispatch);
 
 
 function dispatch(req, res) {
+  // Doing this means you are forced to end the socket yourself
   req.socket.setTimeout(0);
 
-  res.statusCode = 404;
   res.setHeader('content-type', 'application/json; charset=utf-8');
   res.setHeader('cache-control', 'no-cache');
   res.setHeader('content-length', '38');
   res.setHeader('vary', 'accept-encoding');
+  res.writeHead(404);
   res.write('{"statusCode":404,"error":"Not Found"}');
-  res.on('finish', () => {
-    req.socket.end();
-  });
+  req.socket.end();
   res.end();
 }
 
